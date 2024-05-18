@@ -23,6 +23,7 @@ function TicTacToe() {
   const buttons = Array.from(new Array(9));
 
   const handleTurn = (index) => {
+    console.log(index);
     return () => {
       const newPlayer = activePlayer === Players.A ? Players.B : Players.A;
       const playersATruns = playerTurns[Players.A];
