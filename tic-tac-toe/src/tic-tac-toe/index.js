@@ -10,6 +10,7 @@ function TicTacToe() {
         {buttons.map((index) => 
           <button key={index}>X{index}</button>
         )}
+        <h1>Hello</h1>
       </div>
     </>
   );
