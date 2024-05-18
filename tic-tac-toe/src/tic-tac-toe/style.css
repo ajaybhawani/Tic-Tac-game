@@ -2,14 +2,19 @@ body {
   height: 100vh;
   width: 100vw;
 }
+
 .tic-tac-toe {
   width: 300px;
   height: 300px;
-  border-radius: 8px;
-  overflow: hidden;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .App {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -23,22 +28,22 @@ button {
   justify-content: center;
   font-size: 30px;
   background-color: #ddd;
-  border: none;
+  border: 0;
 }
 
-.tic-tac-toe button:nth-child(1),
-.tic-tac-toe button:nth-child(2),
-.tic-tac-toe button:nth-child(3),
-.tic-tac-toe button:nth-child(4),
-.tic-tac-toe button:nth-child(5),
-.tic-tac-toe button:nth-child(6) {
+button:nth-child(1),
+button:nth-child(2),
+button:nth-child(3),
+button:nth-child(4),
+button:nth-child(5),
+button:nth-child(6) {
   border-bottom: 3px solid #000;
 }
-.tic-tac-toe button:nth-child(1),
-.tic-tac-toe button:nth-child(2),
-.tic-tac-toe button:nth-child(4),
-.tic-tac-toe button:nth-child(5),
-.tic-tac-toe button:nth-child(7),
-.tic-tac-toe button:nth-child(8) {
+button:nth-child(1),
+button:nth-child(4),
+button:nth-child(7),
+button:nth-child(2),
+button:nth-child(5),
+button:nth-child(8) {
   border-right: 3px solid #000;
 }
