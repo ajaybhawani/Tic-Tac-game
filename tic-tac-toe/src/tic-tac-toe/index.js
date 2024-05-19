@@ -16,30 +16,57 @@ const DefaultTurns = {
   [Players.B]: [],
 };
 
+const WinningPattern = ["012", "036", "048", "147", "258", "246", "345", "678"];
+
 function TicTacToe() {
   const [activePlayer, setActivePlayer] = useState(Players.A);
   const [playerTurns, setPlayerTurns] = useState(structuredClone(DefaultTurns));
+  const [message, setMessage] = useState("");
 
   const buttons = Array.from(new Array(9));
 
   const handleTurn = (index) => {
-    console.log(index);
     return () => {
       const newPlayer = activePlayer === Players.A ? Players.B : Players.A;
+
       const playersATruns = playerTurns[Players.A];
       const playersBTruns = playerTurns[Players.B];
+
       if (playersATruns.join("").includes(String(index))) {
         return;
       } else if (playersBTruns.join("").includes(String(index))) {
         return;
       }
+
       const oldPlayerTurn = structuredClone(playerTurns);
       oldPlayerTurn[activePlayer].push(String(index));
+
+      const isWon = isPlayerWon(oldPlayerTurn[activePlayer]);
+
+      if (isWon) {
+        setMessage(`player ${activePlayer} win the Game!`);
+      }
       setPlayerTurns(oldPlayerTurn);
       setActivePlayer(newPlayer);
     };
   };
-  console.log(playerTurns);
+
+  const isPlayerWon = (turns) => {
+    const turnsIsStr = turns.sort().join("");
+    const isWon = WinningPattern.some((t) => moreStrict(t, turnsIsStr));
+    return isWon;
+  };
+
+  const moreStrict = (singlePattern, turnsIsStr) => {
+    return singlePattern.split("").every((p) => turnsIsStr.includes(p));
+  };
+
+  const handleRestart = () => {
+    setPlayerTurns(DefaultTurns);
+    setActivePlayer(Players.A);
+    setMessage("");
+  };
+
 
   return (
     <>
@@ -62,6 +89,14 @@ function TicTacToe() {
             </button>
           );
         })}
+      </div>
+      <div className="message">
+        {!!message && (
+          <>
+            <h5>{message}</h5>
+            <button onClick={handleRestart} className="restart-button">Restart</button>
+          </>
+        )}
       </div>
     </>
   );
