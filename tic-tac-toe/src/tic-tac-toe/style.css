@@ -29,6 +29,7 @@ button {
   font-size: 30px;
   background-color: #ddd;
   border: 0;
+  cursor: pointer;
 }
 
 button:nth-child(1),
@@ -46,4 +47,18 @@ button:nth-child(2),
 button:nth-child(5),
 button:nth-child(8) {
   border-right: 3px solid #000;
+}
+.message {
+  position: absolute;
+  left: 80%;
+  top: 20%;
+}
+.restart-button {
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  background-color: #b51a1a;
+  border: 0;
+  cursor: pointer;
 }
