@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 
 const Players = {
-  A: 0,
-  B: 1,
+  A: 1,
+  B: 2,
 };
 
 const PlayerIcon = {
@@ -22,11 +22,17 @@ function TicTacToe() {
   const [activePlayer, setActivePlayer] = useState(Players.A);
   const [playerTurns, setPlayerTurns] = useState(structuredClone(DefaultTurns));
   const [message, setMessage] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
   const buttons = Array.from(new Array(9));
 
   const handleTurn = (index) => {
     return () => {
+      if (gameOver) {
+        alert("Game Over!");
+        return;
+      }
+
       const newPlayer = activePlayer === Players.A ? Players.B : Players.A;
 
       const playersATruns = playerTurns[Players.A];
@@ -45,7 +51,12 @@ function TicTacToe() {
 
       if (isWon) {
         setMessage(`player ${activePlayer} win the Game!`);
+        setGameOver(true);
+      } else if (gameOverNow(oldPlayerTurn)) {
+        setMessage("Game draw!");
+        setGameOver(true);
       }
+
       setPlayerTurns(oldPlayerTurn);
       setActivePlayer(newPlayer);
     };
@@ -61,12 +72,18 @@ function TicTacToe() {
     return singlePattern.split("").every((p) => turnsIsStr.includes(p));
   };
 
+  const gameOverNow = (turns) => {
+    return [...turns[Players.A], ...turns[Players.B]].length === 9;
+  };
+
   const handleRestart = () => {
     setPlayerTurns(DefaultTurns);
     setActivePlayer(Players.A);
     setMessage("");
+    setGameOver(false);
   };
 
+  console.log("message", message);
 
   return (
     <>
@@ -91,10 +108,12 @@ function TicTacToe() {
         })}
       </div>
       <div className="message">
-        {!!message && (
+        {message && (
           <>
             <h5>{message}</h5>
-            <button onClick={handleRestart} className="restart-button">Restart</button>
+            <button onClick={handleRestart} className="restart-button">
+              Restart
+            </button>
           </>
         )}
       </div>
